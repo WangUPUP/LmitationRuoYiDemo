@@ -1,20 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login.vue'
-import Home from '@/components/Home.vue'
+
+import Layout from '@/layout'
 
 Vue.use(Router)
 
 export const constantRoutes = [
 	{
-		path: '/login',
-		name: 'Login',
-		component: Login
+		path: '/redirect',
+		component: Layout,
+		hidden: true,
+		children: [
+			{
+				path: '/redirect/:path(.*)',
+				component: resolve => require(['@/views/redirect'], resolve)
+			}
+		]
 	},
 	{
-		path: '/home',
-		name: 'Home',
-		component: Home
+		path: '/login',
+		component: resolve => require(['@/views/login'], resolve)
 	}
 ]
 

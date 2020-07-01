@@ -1,5 +1,5 @@
 <template>
-	<section></section>
+	<div><h1>log</h1></div>
 </template>
 
 <script>

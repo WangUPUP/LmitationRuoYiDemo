@@ -1,4 +1,4 @@
-import { login } from '../../api/login'
+import { login, getInfo } from '../../api/login'
 import { getToken, setToken } from '../../utils/auth'
 
 const user = {
@@ -14,12 +14,15 @@ const user = {
 	mutations: {
 		SET_TOKEN: (state, token) => {
 			state.token = token
+			console.log('set token')
 		},
 		SET_NAME: (state, name) => {
 			state.name = name
+			console.log('set name')
 		},
 		SET_ROLES: (state, roles) => {
 			state.roles = roles
+			console.log('set roles')
 		}
 	},
 
@@ -46,9 +49,24 @@ const user = {
 					})
 			})
 		},
+
+		// 获取用户信息
 		GetInfo({ commit, state }) {
 			return new Promise((resolve, reject) => {
-				// getInfo(state.token)
+				getInfo()
+					.then(res => {
+						const info = res.data.userInfo
+						if (info.roles && info.roles.length > 0) {
+							commit('SET_ROLES', info.roles)
+						} else {
+							commit('SET_ROLES', ['ROLES_DEFAULT'])
+						}
+						commit('SET_NAME', info.username)
+						resolve(res)
+					})
+					.catch(error => {
+						reject(error)
+					})
 			})
 		}
 	}
