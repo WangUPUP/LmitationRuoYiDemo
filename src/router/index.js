@@ -19,7 +19,14 @@ export const constantRoutes = [
 	},
 	{
 		path: '/login',
-		component: resolve => require(['@/views/login'], resolve)
+		component: resolve => require(['@/views/login'], resolve),
+		hidden: true
+	},
+	{
+		path: '/',
+		redirect: '/home',
+		component: resolve => require(['@/layout/index'], resolve),
+		hidden: true
 	}
 ]
 
