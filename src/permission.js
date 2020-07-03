@@ -16,8 +16,8 @@ router.beforeEach((to, from, next) => {
 				store.dispatch('GetInfo').then(res => {
 					const roles = res.data.userInfo.roles
 					store.dispatch('GenerateRoutes', { roles }).then(accessedRoutes => {
+						console.log(accessedRoutes)
 						router.addRoutes(accessedRoutes) // 动态添加可访问路由
-						console.log(router)
 						// next({ ...to, replace: true }) // hack 方法, 确保 addRoutes 已完成
 						next()
 					})

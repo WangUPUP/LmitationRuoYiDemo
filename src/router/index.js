@@ -24,7 +24,10 @@ export const constantRoutes = [
 	},
 	{
 		path: '/',
-		redirect: '/home',
+		redirect: '/home'
+	},
+	{
+		path: '/home',
 		component: resolve => require(['@/layout/index'], resolve),
 		hidden: true
 	}
