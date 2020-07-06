@@ -14,34 +14,46 @@
 				<!-- 菜单栏 -->
 				<el-row>
 					<el-menu
-						default-active="2"
-						class="el-menu-vertical-demo"
-						@open="handleOpen"
-						@close="handleClose"
+						default-active="1"
+						class="el-menu-aside"
 						background-color="#545c64"
 						text-color="#fff"
 						active-text-color="#ffd04b"
 						:router="true"
+						unique-opened
 					>
+						<!-- 首页 -->
+						<el-menu-item index="1">
+							<template slot="title">
+								<i class="el-icon-odometer"></i>
+								<span>首页</span>
+							</template>
+						</el-menu-item>
 						<!-- 一级菜单 -->
 						<template v-for="item in route">
 							<el-submenu :key="item.name" :index="item.path">
 								<template slot="title">
+									<i :class="item.meta.icon"></i>
 									<span>{{ item.meta.title }}</span>
 								</template>
 								<!-- 二级菜单  -->
 								<template v-for="subitem in item.children">
 									<el-submenu v-if="subitem.children" :key="subitem.name" :index="subitem.path">
 										<template slot="title">
+											<i :class="subitem.meta.icon"></i>
 											<span>{{ subitem.meta.title }}</span>
 										</template>
 										<el-menu-item v-for="child in subitem.children" :key="child.name" :index="child.path" v-if="subitem.children">
 											<template slot="title">
+												<i :class="subitem.meta.icon"></i>
 												<span>{{ child.meta.title }}</span>
 											</template>
 										</el-menu-item>
 									</el-submenu>
-									<el-menu-item v-else :key="subitem.name" :index="subitem.path">{{ subitem.meta.title }}</el-menu-item>
+									<el-menu-item v-else :key="subitem.name" :index="subitem.path">
+										<i :class="subitem.meta.icon"></i>
+										<span>{{ subitem.meta.title }}</span>
+									</el-menu-item>
 								</template>
 							</el-submenu>
 						</template>
@@ -55,18 +67,37 @@
 						<el-row type="flex" justify="space-between">
 							<el-col class="hamburger" :span="12">
 								<el-row type="flex" justify="start">
+									<!-- 菜单栏收缩块 -->
 									<i class="el-icon-s-fold"> </i>
+									<!-- 面包屑导航 -->
 									<el-breadcrumb separator="/">
-										<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-										<el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
+										<el-breadcrumb-item>首页</el-breadcrumb-item>
+										<el-breadcrumb-item>...</el-breadcrumb-item>
 									</el-breadcrumb>
 								</el-row>
 							</el-col>
-							<el-col class="right-menu" :span="6">123</el-col>
+							<el-col class="right-menu" :span="6">
+								<el-row type="flex" justify="start">
+									<div><i class="el-icon-search"></i></div>
+									<el-input size="medium" class="el-input-search" placeholder="search" v-model="data" style="width : 200px"></el-input>
+									<el-dropdown trigger="click">
+										<div>
+											<img src="../assets/logo.png" />
+										</div>
+										<el-dropdown-menu slot="dropdown">
+											<el-dropdown-item>个人中心</el-dropdown-item>
+											<el-dropdown-item class="layoutSetting">布局设置</el-dropdown-item>
+											<el-dropdown-item>退出登录</el-dropdown-item>
+										</el-dropdown-menu>
+									</el-dropdown>
+								</el-row>
+							</el-col>
 						</el-row>
 					</el-card>
 				</el-header>
-				<el-main>Main</el-main>
+				<el-main>
+					Main
+				</el-main>
 			</el-container>
 		</el-container>
 	</section>
@@ -76,6 +107,9 @@
 export default {
 	data() {
 		return {
+			data: '',
+			// 控制搜索输入框的显示和隐藏
+			show: true,
 			route: [
 				{
 					name: 'System',
@@ -125,31 +159,24 @@ export default {
 		}
 	},
 	created() {},
-	methods: {
-		handleOpen(key, keyPath) {
-			console.log(key, keyPath)
-		},
-		handleClose(key, keyPath) {
-			console.log(key, keyPath)
-		}
-	}
+	methods: {}
 }
 </script>
 
 <style>
 section {
 	width: 100%;
-	height: 900px;
+	height: 1000px;
 }
-/* .el-row {
-	height: 850px;
-} */
 
 .el-menu {
-	height: 850px;
 	border-right: 0px !important;
 }
-img {
+.el-menu-aside {
+	min-height: 900px;
+}
+
+.asideLogo img {
 	width: 32px;
 	height: 32px;
 	margin: 10px auto;
@@ -197,5 +224,48 @@ img {
 
 .el-breadcrumb {
 	margin-top: 8px;
+}
+
+.right-menu {
+	margin-top: 6px;
+}
+
+.el-icon-search {
+	font-size: 20px;
+	line-height: 36px;
+	margin-right: 5px;
+}
+
+.el-input-search /deep/ .el-input__inner {
+	border: none;
+	border-bottom: 1px solid #ebeef5;
+	border-radius: 0;
+	width: 200px;
+}
+
+.el-dropdown {
+	margin-left: 30px;
+}
+
+.el-dropdown .focusing {
+	outline: none;
+}
+
+.el-dropdown img {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+}
+
+.layoutSetting {
+	border-bottom: 1px solid #ebeef5;
+}
+
+.el-dropdown-menu {
+	padding: 0px;
+}
+
+.el-popper {
+	margin-top: 10px;
 }
 </style>
