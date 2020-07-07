@@ -12,12 +12,15 @@ import store from './store'
 import './permission'
 
 import Vuex from 'vuex'
+import VCharts from 'v-charts'
+
 require('./mock')
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 Vue.use(Vuex)
+Vue.use(VCharts)
 
 /* eslint-disable no-new */
 new Vue({

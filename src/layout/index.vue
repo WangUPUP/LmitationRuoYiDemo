@@ -76,6 +76,7 @@
 									</el-breadcrumb>
 								</el-row>
 							</el-col>
+							<!-- 右侧菜单 -->
 							<el-col class="right-menu" :span="6">
 								<el-row type="flex" justify="start">
 									<div><i class="el-icon-search"></i></div>
@@ -94,9 +95,98 @@
 							</el-col>
 						</el-row>
 					</el-card>
+					<el-row class="tabs">
+						<el-tag v-for="tag in tags" :key="tag.name" closable :type="tag.type">
+							{{ tag.name }}
+						</el-tag>
+					</el-row>
 				</el-header>
 				<el-main>
-					Main
+					<!-- panel-group -->
+					<el-row class="panel-group" :gutter="20">
+						<el-col :span="6">
+							<el-card @click.native="chageShow">
+								<el-row type="flex" justify="space-between">
+									<el-col :span="6">
+										<i class="el-icon-star-on" v-show="picShow"></i>
+										<i class="el-icon-star-off" v-show="!picShow"></i>
+									</el-col>
+									<el-col :span="6">
+										<div class="panel-text">访客</div>
+										<div class="panel-num">14000</div>
+									</el-col>
+								</el-row>
+							</el-card>
+						</el-col>
+
+						<el-col :span="6">
+							<el-card @click.native="chageShow">
+								<el-row type="flex" justify="space-between">
+									<el-col :span="6">
+										<i class="el-icon-star-on" v-show="picShow"></i>
+										<i class="el-icon-star-off" v-show="!picShow"></i>
+									</el-col>
+									<el-col :span="6">
+										<div class="panel-text">消息</div>
+										<div class="panel-num">14000</div>
+									</el-col>
+								</el-row>
+							</el-card>
+						</el-col>
+
+						<el-col :span="6">
+							<el-card @click.native="chageShow">
+								<el-row type="flex" justify="space-between">
+									<el-col :span="6">
+										<i class="el-icon-star-on" v-show="picShow"></i>
+										<i class="el-icon-star-off" v-show="!picShow"></i>
+									</el-col>
+									<el-col :span="6">
+										<div class="panel-text">金额</div>
+										<div class="panel-num">14000</div>
+									</el-col>
+								</el-row>
+							</el-card>
+						</el-col>
+
+						<el-col :span="6">
+							<el-card @click.native="chageShow">
+								<el-row type="flex" justify="space-between">
+									<el-col :span="6">
+										<i class="el-icon-star-on" v-show="picShow"></i>
+										<i class="el-icon-star-off" v-show="!picShow"></i>
+									</el-col>
+									<el-col :span="6">
+										<div class="panel-text">订单</div>
+										<div class="panel-num">14000</div>
+									</el-col>
+								</el-row>
+							</el-card>
+						</el-col>
+					</el-row>
+					<!-- line chart -->
+					<el-row class="lineChart">
+						<el-card> <ve-line :data="lineData"></ve-line></el-card>
+					</el-row>
+
+					<!-- chart group -->
+					<el-row type="flex" justify="space-between" class="chartGroup" :gutter="20">
+						<el-col :span="8">
+							<el-card>
+								<ve-radar :data="radarData"></ve-radar>
+							</el-card>
+						</el-col>
+						<el-col :span="8">
+							<el-card>
+								<ve-pie :data="pieData"></ve-pie>
+							</el-card>
+						</el-col>
+						<el-col :span="8">
+							<el-card>
+								<ve-histogram :data="histogramData"></ve-histogram>
+							</el-card>
+						</el-col>
+					</el-row>
 				</el-main>
 			</el-container>
 		</el-container>
@@ -107,6 +197,52 @@
 export default {
 	data() {
 		return {
+			histogramData: {
+				columns: ['日期', '访问用户', '下单用户', '下单率'],
+				rows: [
+					{ 日期: '1/1', 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 },
+					{ 日期: '1/2', 访问用户: 3530, 下单用户: 3230, 下单率: 0.26 },
+					{ 日期: '1/3', 访问用户: 2923, 下单用户: 2623, 下单率: 0.76 },
+					{ 日期: '1/4', 访问用户: 1723, 下单用户: 1423, 下单率: 0.49 },
+					{ 日期: '1/5', 访问用户: 3792, 下单用户: 3492, 下单率: 0.323 },
+					{ 日期: '1/6', 访问用户: 4593, 下单用户: 4293, 下单率: 0.78 }
+				]
+			},
+			pieData: {
+				columns: ['日期', '访问用户'],
+				rows: [
+					{ 日期: '1/1', 访问用户: 1393 },
+					{ 日期: '1/2', 访问用户: 3530 },
+					{ 日期: '1/3', 访问用户: 2923 },
+					{ 日期: '1/4', 访问用户: 1723 },
+					{ 日期: '1/5', 访问用户: 3792 },
+					{ 日期: '1/6', 访问用户: 4593 }
+				]
+			},
+			radarData: {
+				columns: ['日期', '访问用户', '下单用户', '下单率'],
+				rows: [
+					{ 日期: '1/1', 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 },
+					{ 日期: '1/2', 访问用户: 3530, 下单用户: 3230, 下单率: 0.26 },
+					{ 日期: '1/3', 访问用户: 2923, 下单用户: 2623, 下单率: 0.76 },
+					{ 日期: '1/4', 访问用户: 1723, 下单用户: 1423, 下单率: 0.49 },
+					{ 日期: '1/5', 访问用户: 3792, 下单用户: 3492, 下单率: 0.323 },
+					{ 日期: '1/6', 访问用户: 4593, 下单用户: 4293, 下单率: 0.78 }
+				]
+			},
+			lineData: {
+				columns: ['日期', '访问用户', '下单用户', '下单率'],
+				rows: [
+					{ 日期: '1/1', 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 },
+					{ 日期: '1/2', 访问用户: 3530, 下单用户: 3230, 下单率: 0.26 },
+					{ 日期: '1/3', 访问用户: 2923, 下单用户: 2623, 下单率: 0.76 },
+					{ 日期: '1/4', 访问用户: 1723, 下单用户: 1423, 下单率: 0.49 },
+					{ 日期: '1/5', 访问用户: 3792, 下单用户: 3492, 下单率: 0.323 },
+					{ 日期: '1/6', 访问用户: 4593, 下单用户: 4293, 下单率: 0.78 }
+				]
+			},
+			picShow: true,
+			tags: [{ name: '标签一' }, { name: '标签二' }, { name: '标签三' }, { name: '标签四' }, { name: '标签五' }],
 			data: '',
 			// 控制搜索输入框的显示和隐藏
 			show: true,
@@ -158,22 +294,28 @@ export default {
 			]
 		}
 	},
-	created() {},
-	methods: {}
+	created() {
+		console.log(this.$route)
+	},
+	methods: {
+		chageShow() {
+			this.picShow = !this.picShow
+		}
+	}
 }
 </script>
 
-<style>
+<style scoped>
 section {
 	width: 100%;
-	height: 1000px;
+	height: 1200px;
 }
 
 .el-menu {
 	border-right: 0px !important;
 }
 .el-menu-aside {
-	min-height: 900px;
+	min-height: 1100px;
 }
 
 .asideLogo img {
@@ -198,14 +340,17 @@ section {
 	margin: 0;
 	background-color: #fff;
 	border-bottom: 1px solid #ebeef5;
+	box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
 
 .header {
-	height: 80px !important;
+	height: 90px !important;
 }
 
 .navbar {
 	height: 50px !important;
+	background-color: #fff;
+	box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
 
 .hamburger {
@@ -214,8 +359,9 @@ section {
 	margin: 8px 10px;
 }
 
-.el-card__body {
-	padding: 0;
+.navbar /deep/ .el-card__body {
+	padding: 0px;
+	height: 100%;
 }
 
 .el-icon-s-fold {
@@ -266,6 +412,57 @@ section {
 }
 
 .el-popper {
+	margin-top: 10px;
+}
+
+.tabs {
+	height: 30px;
+	margin-top: px;
+}
+
+.tabs .el-tag {
+	margin: 5px 5px;
+	border: 1px solid #d8dce5;
+	color: #495060;
+	background: #fff;
+	border-radius: 0px;
+	height: 26px;
+	line-height: 26px;
+}
+
+.tabs /deep/ .el-tag__close {
+	color: #495060;
+}
+
+.el-container {
+	background-color: #f0f2f5;
+}
+
+/* main部分 */
+.panel-group .el-card {
+	height: 108px;
+	border: none;
+	border-radius: 0px;
+	box-shadow: none;
+}
+
+.panel-text {
+	font-size: 16px;
+	color: rgb(0, 0, 0, 0.45);
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.panel-num {
+	font-size: 20px;
+	color: #666;
+}
+
+.lineChart {
+	margin-top: 10px;
+}
+
+.chartGroup {
 	margin-top: 10px;
 }
 </style>
