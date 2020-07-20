@@ -14,6 +14,8 @@ import './permission'
 import Vuex from 'vuex'
 import VCharts from 'v-charts'
 
+import './assets/icons'
+
 require('./mock')
 
 Vue.config.productionTip = false
