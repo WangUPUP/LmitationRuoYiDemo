@@ -19,7 +19,7 @@
 						background-color="#545c64"
 						text-color="#fff"
 						active-text-color="#ffd04b"
-						router
+						:router="true"
 						unique-opened
 					>
 						<!-- 首页 -->
@@ -170,9 +170,7 @@ export default {
 			]
 		}
 	},
-	created() {
-		console.log(this.$route)
-	},
+	created() {},
 	methods: {}
 }
 </script>
