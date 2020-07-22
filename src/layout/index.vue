@@ -19,18 +19,18 @@
 						background-color="#545c64"
 						text-color="#fff"
 						active-text-color="#ffd04b"
-						:router="true"
+						router
 						unique-opened
 					>
 						<!-- 首页 -->
-						<el-menu-item index="$route.path">
+						<el-menu-item :index="$route.path">
 							<template slot="title">
 								<i class="el-icon-odometer"></i>
 								<span>首页</span>
 							</template>
 						</el-menu-item>
 						<!-- 一级菜单 -->
-						<template v-for="item in route">
+						<template v-for="item in $store.state.permission.addRoutes">
 							<el-submenu :key="item.name" :index="item.path">
 								<template slot="title">
 									<i :class="item.meta.icon"></i>
@@ -121,53 +121,7 @@ export default {
 			tags: [{ name: '标签一' }, { name: '标签二' }, { name: '标签三' }, { name: '标签四' }, { name: '标签五' }],
 			data: '',
 			// 控制搜索输入框的显示和隐藏
-			show: true,
-			route: [
-				{
-					name: 'System',
-					path: '/system',
-					hidden: false,
-					redirect: 'noRedirect',
-					component: 'Layout',
-					alwaysShow: true,
-					meta: { title: '系统管理', icon: 'system' },
-					children: [
-						{ name: 'User', path: 'user', hidden: false, component: 'system/user/index', meta: { title: '用户管理', icon: 'user' } },
-						{ name: 'Role', path: 'role', hidden: false, component: 'system/role/index', meta: { title: '角色管理', icon: 'peoples' } },
-						{ name: 'Menu', path: 'menu', hidden: false, component: 'system/menu/index', meta: { title: '菜单管理', icon: 'tree-table' } },
-						{ name: 'Dept', path: 'dept', hidden: false, component: 'system/dept/index', meta: { title: '部门管理', icon: 'tree' } },
-						{ name: 'Post', path: 'post', hidden: false, component: 'system/post/index', meta: { title: '岗位管理', icon: 'post' } },
-						{ name: 'Dict', path: 'dict', hidden: false, component: 'system/dict/index', meta: { title: '字典管理', icon: 'dict' } },
-						{ name: 'Config', path: 'config', hidden: false, component: 'system/config/index', meta: { title: '参数设置', icon: 'edit' } },
-						{ name: 'Notice', path: 'notice', hidden: false, component: 'system/notice/index', meta: { title: '通知公告', icon: 'message' } },
-						{
-							name: 'Log',
-							path: 'log',
-							hidden: false,
-							redirect: 'noRedirect',
-							component: 'system/log/index',
-							alwaysShow: true,
-							meta: { title: '日志管理', icon: 'log' },
-							children: [
-								{
-									name: 'Operlog',
-									path: 'operlog',
-									hidden: false,
-									component: 'monitor/operlog/index',
-									meta: { title: '操作日志', icon: 'form' }
-								},
-								{
-									name: 'Logininfor',
-									path: 'logininfor',
-									hidden: false,
-									component: 'monitor/logininfor/index',
-									meta: { title: '登录日志', icon: 'logininfor' }
-								}
-							]
-						}
-					]
-				}
-			]
+			show: true
 		}
 	},
 	created() {},
