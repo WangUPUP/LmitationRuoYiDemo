@@ -31,6 +31,7 @@
 						</el-menu-item>
 						<!-- 一级菜单 -->
 						<template v-for="item in $store.state.permission.addRoutes">
+							<!-- <template v-for="item in $router"> -->
 							<el-submenu :key="item.name" :index="item.path">
 								<template slot="title">
 									<i :class="item.meta.icon"></i>
@@ -125,7 +126,11 @@ export default {
 		}
 	},
 	created() {},
-	methods: {}
+	methods: {},
+	mounted() {
+		// this.$router = this.$router.concat(this.$store.state.permission.addRoutes)
+		// console.log(this.$router)
+	}
 }
 </script>
 

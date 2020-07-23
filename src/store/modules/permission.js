@@ -37,13 +37,17 @@ function filterAsyncRouters(asyncRoutersMap) {
 			// Layout 组件特殊处理
 			if (route.component === 'Layout') {
 				route.component = Layout
+				console.log(route)
 			} else {
 				route.component = loadView(route.component)
 			}
+			// console.log(JSON.stringify(route.component))
 		}
 		if (route.children != null && route.children && route.children.length) {
 			route.children = filterAsyncRouters(route.children)
 		}
+		window.localStorage.setItem('key', JSON.stringify(route))
+		// console.log(JSON.stringify(route))
 		return true
 	})
 }
